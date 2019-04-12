@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.lumbela.testing</groupId>
+    <artifactId>serenity-cucumber-template</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <!-- Updated to latest stable versions on: 4 DEC 2018 -->
+
+        <!-- SERENITY -->
+        <!-- see: https://mvnrepository.com/artifact/net.serenity-bdd/serenity-core -->
+        <!-- see: https://mvnrepository.com/artifact/net.serenity-bdd/serenity-cucumber -->
+        <serenity.version>2.0.20</serenity.version>
+        <serenity.cucumber.version>1.9.21</serenity.cucumber.version>
+
+        <!-- DRIVER -->
+        <!-- get latest drivers from: https://www.seleniumhq.org/download/#thirdPartyDrivers -->
+        <webdriver.driver>chrome</webdriver.driver>
+        <!--    1. state driver location
+                2. add property to failsafe plugin -->
+        <webdriver.gecko.driver>src/test/resources/drivers/geckodriver</webdriver.gecko.driver>
+        <webdriver.chrome.driver>src/test/resources/drivers/chromedriver</webdriver.chrome.driver>
+        <webdriver.ie.driver>src/test/resources/drivers/IEDriverServer</webdriver.ie.driver>
+        <!-- PLUGINS -->
+        <!-- see: https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
+        <!-- see: https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-failsafe-plugin -->
+        <!-- see: https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
+        <maven.surefire.version>2.22.1</maven.surefire.version>
+        <maven.failsafe.version>${maven.surefire.version}</maven.failsafe.version>
+        <maven.compiler.version>3.8.0</maven.compiler.version>
+    </properties>
+
+    <packaging>jar</packaging>
+
+    <name>Serenity Cucumber template</name>
+
+    <repositories>
+      <repository>
+        <snapshots>
+        <enabled>false</enabled>
+        </snapshots>
+        <id>central</id>
+        <name>bintray</name>
+        <url>http://jcenter.bintray.com</url>
+      </repository>
+    </repositories>
+    <pluginRepositories>
+      <pluginRepository>
+        <snapshots>
+        <enabled>false</enabled>
+        </snapshots>
+        <id>central</id>
+        <name>bintray-plugins</name>
+        <url>http://jcenter.bintray.com</url>
+      </pluginRepository>
+    </pluginRepositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>net.serenity-bdd</groupId>
+            <artifactId>serenity-core</artifactId>
+            <version>${serenity.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.serenity-bdd</groupId>
+            <artifactId>serenity-cucumber</artifactId>
+            <version>${serenity.cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.7</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-email</artifactId>
+            <version>1.5</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven.surefire.version}</version>
+                <configuration>
+                    <skip>true</skip>
+                    <systemPropertyVariables>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>${maven.failsafe.version}</version>
+                <configuration>
+                    <includes>
+                        <include>**/*.java</include>
+                    </includes>
+                    <argLine>-Xmx512m</argLine>
+                    <systemPropertyVariables>
+                        <webdriver.driver>${webdriver.driver}</webdriver.driver>
+                        <chrome.capabilities.acceptInsecureCerts>true</chrome.capabilities.acceptInsecureCerts>
+<!--
+                        <webdriver.chrome.driver>${project.basedir}/src/test/resources/drivers/chromedriver </webdriver.chrome.driver>
+-->
+                        <webdriver.gecko.driver>${project.basedir}/${webdriver.gecko.driver}</webdriver.gecko.driver>
+                        <webdriver.chrome.driver>${project.basedir}/${webdriver.chrome.driver}</webdriver.chrome.driver>
+                    </systemPropertyVariables>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.version}</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>net.serenity-bdd.maven.plugins</groupId>
+                <artifactId>serenity-maven-plugin</artifactId>
+                <version>${serenity.version}</version>
+                <executions>
+                    <execution>
+                        <id>serenity-reports</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>aggregate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
