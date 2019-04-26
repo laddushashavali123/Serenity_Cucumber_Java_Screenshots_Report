@@ -205,9 +205,9 @@ public class WebDriverUtils {
         //Get the difference (currentTime - startTime)  of times.
         System.out.println("Passed time: " + (System.currentTimeMillis() - start_time));
         js.executeScript("arguments[0].setAttribute('style', arguments[1]);", element, "border: 2px solid blue");
-        delay(200);
+        delay(8000);
         js.executeScript("arguments[0].setAttribute('style', arguments[1]);", element, "");
-        delay(200);
+        delay(8000);
         ((JavascriptExecutor) driver).executeScript("arguments[0].checked = true;", element);
     }
     public void checkPageIsReady() {
@@ -247,15 +247,15 @@ public class WebDriverUtils {
 
     public void scrollToElement(final WebElement element){
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        delay(200);
+        delay(8000);
         js.executeScript("arguments[0].scrollIntoView(true);", element);
     }
     public void ScrollToElementAndClick(final WebElement element){
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView(true);", element);
-        delay(200);
+        delay(5000);
         js.executeScript("arguments[0].click();", element);
-        delay(200);
+        delay(5000);
     }
     public void delay(int timeInMilli){
         try {

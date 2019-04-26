@@ -50,13 +50,13 @@ public class AutomationPracticePage extends DriverClass {
     /**
      * Locator for Radio button: "Mr."
      */
-    @FindBy(xpath = "//*[@id='uniform-id_gender1' and @class='radio']/span/input")
+    @FindBy(id = "uniform-id_gender1")
     private static WebElement rdBtnMr;
 
     /**
      * Locator for Radio button: "Mrs."
      */
-    @FindBy(xpath = "//*[@id='uniform-id_gender2' and @class='radio']/span/input")
+    @FindBy(id = "uniform-id_gender2")
     private static WebElement rdBtnMrs;
 
     /**
@@ -798,6 +798,11 @@ public class AutomationPracticePage extends DriverClass {
 
     public void clickOnProceedToChkOutOnOverlay() {
         //  logger.writeLog("INFO","Clicking on Proceed to checkout on an overlay");
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         WebDriverUtils webDriverUtils = new WebDriverUtils(driver);
         webDriverUtils.waitForVisibilityOfElement(getBtnProceedToCheckout());
         getBtnProceedToCheckout().click();
@@ -871,6 +876,7 @@ public class AutomationPracticePage extends DriverClass {
         WebDriverUtils webDriverUtils = new WebDriverUtils(driver);
         webDriverUtils.checkPageIsReady();
         webDriverUtils.waitForJStoLoad();
+
         webDriverUtils.jsRadioButtonCheck(getRdBtnMr());
         getTxtBoxFirstName().sendKeys(properties.getProperty("FirstName"));
         getTxtBoxLastName().sendKeys(properties.getProperty("LastName"));

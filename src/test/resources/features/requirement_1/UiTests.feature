@@ -1,5 +1,5 @@
 @web
-Feature: This feature file contains the Test Scenarios for GFK Assignment, includes (Signup, Login and Checkout): Portal: "http://automationpractice.com/index.php"
+Feature: This feature file contains the Test Scenarios for Algorythma Assignment, includes (Signup, Login and Checkout): Portal: "http://automationpractice.com/index.php"
 
 @SignUp
 Scenario: Sign up to the portal
