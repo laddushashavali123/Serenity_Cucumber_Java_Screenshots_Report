@@ -826,8 +826,11 @@ public class AutomationPracticePage extends DriverClass {
         //   logger.writeLog("INFO","selecting the checkbox terms");
         WebDriverUtils webDriverUtils = new WebDriverUtils(driver);
         webDriverUtils.scrollToElement(getChkBoxIAgree());
-
-        getChkBoxIAgree().click();
+        try {
+            webDriverUtils.actionClick(getChkBoxIAgree());
+        }catch(Exception e) {
+            getChkBoxIAgree().click();
+        }
     }
 
     public void clickOnProceedOnShippingSection() {
