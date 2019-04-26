@@ -19,7 +19,7 @@ This template uses selenium, cucumber and serenity to:
  
 ---  
 
-Updated uptill 2018/12/04
+Updated uptill 2019/12/04
 ---  
 _This template is based on the maven serenity-cucumber-archetype, but that doesn't work out-of-the-box,  
 so I've adapted it a bit :)_
